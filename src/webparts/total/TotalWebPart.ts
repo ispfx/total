@@ -1,30 +1,19 @@
+import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
+import { IPropertyPaneConfiguration, PropertyPaneSlider } from '@microsoft/sp-property-pane';
+import { Total, ITotalProps } from './components/Total';
+import { Version } from '@microsoft/sp-core-library';
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { Version } from '@microsoft/sp-core-library';
-import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import {
-  IPropertyPaneConfiguration,
-  PropertyPaneTextField
-} from '@microsoft/sp-property-pane';
-
-import * as strings from 'TotalWebPartStrings';
-import Total from './components/Total';
-import { ITotalProps } from './components/ITotalProps';
 
 export interface ITotalWebPartProps {
-  description: string;
+  total: number;
 }
 
 export default class TotalWebPart extends BaseClientSideWebPart<ITotalWebPartProps> {
-
   public render(): void {
-    const element: React.ReactElement<ITotalProps > = React.createElement(
-      Total,
-      {
-        description: this.properties.description
-      }
-    );
-
+    const element: React.ReactElement<ITotalProps> = React.createElement(Total, {
+      total: this.properties.total,
+    });
     ReactDom.render(element, this.domElement);
   }
 
@@ -41,15 +30,17 @@ export default class TotalWebPart extends BaseClientSideWebPart<ITotalWebPartPro
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: 'Total Settings'
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: 'Value',
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
+                PropertyPaneSlider('total', {
+                  label: 'Total Value',
+                  min: 0,
+                  max: 10000,
+                }),
               ]
             }
           ]

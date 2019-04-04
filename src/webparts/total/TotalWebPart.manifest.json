@@ -19,9 +19,9 @@
     "group": { "default": "Other" },
     "title": { "default": "Total" },
     "description": { "default": "A simple total display, may consume dynamic data" },
-    "officeFabricIconFontName": "Page",
+    "officeFabricIconFontName": "DashboardAdd",
     "properties": {
-      "description": "Total"
+      "total": 0
     }
   }]
 }
